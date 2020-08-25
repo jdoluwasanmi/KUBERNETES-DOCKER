@@ -89,8 +89,7 @@ The containers need to access the host filesystem. SELinux needs to be set to pe
 Use following commands to disable SELinux:
 
 sudo setenforce 0
-sudo sed -i ‘s/^SELINUX=enforcing$/SELINUX=permissive/’ /etc/selinux/config
-
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 Step 7: Disable SWAP
 Lastly, we need to disable SWAP to enable the kubelet to work properly:
