@@ -98,7 +98,7 @@ sudo sed -i '/swap/d' /etc/fstab
 sudo swapoff -a
 
 
-
+***DO THESE ONLY ON MASTER NODE***
 
 How to Deploy a Kubernetes Cluster
 Step 1: Create Cluster with kubeadm
