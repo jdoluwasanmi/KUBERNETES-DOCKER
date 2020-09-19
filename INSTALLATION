@@ -144,6 +144,8 @@ Replace the codes with the ones from your master server. Repeat this action for 
 
 
 HOW TO DEPLOY WITH YAML FILE:
+vim nginx-deployment.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -166,6 +168,33 @@ spec:
         ports:
         - containerPort: 80
         
+        apply:
+kubectl apply -f nginx-deployment.yaml 
+
+        
+        for service:
+        vim nginx-service.yaml
+        
+        
+apiVersion: v1
+kind: Service
+metadata:
+  name: "nginx"
+spec:
+  selector:
+    app: "nginx"
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  
+  kubectl apply -f nginx-service.yaml
+  
+how to check if the service has the right port
+kubectl describe service (servicename)
+
+
         
         
 
