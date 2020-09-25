@@ -142,6 +142,13 @@ As indicated in Step 1, you can use the kubeadm join command on each worker node
 kubeadm join --discovery-token cfgrty.1234567890jyrfgd --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443
 Replace the codes with the ones from your master server. Repeat this action for each worker node on your cluster.
 
+Run this command to open the dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
+
+kubectl -n kubernetes-dashboard get all
+
+
+
 
 HOW TO DEPLOY WITH YAML FILE:
 vim nginx-deployment.yaml
