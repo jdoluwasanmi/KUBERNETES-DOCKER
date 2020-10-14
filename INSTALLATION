@@ -148,7 +148,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/a
 kubectl -n kubernetes-dashboard get all
 
 
-
+****https://github.com/ACloudGuru-Resources/Course_GKE_Beginner_To_Pro***
 
 HOW TO DEPLOY WITH YAML FILE:
 vim nginx-deployment.yaml
@@ -202,6 +202,91 @@ how to check if the service has the right port
 kubectl describe service (servicename)
 
 
-        
-        
 
+MULTI CONTAINER-PODS CONFIG
+vim multi.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi
+spec:
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+  containers:
+  - name: web-container
+    image: nginx
+    volumeMounts:
+    - name: shared-data
+      mountPath: /usr/share/nginx/html
+  - name: ftp-container
+    image: fauria/vsftpd
+    volumeMounts:
+    - name: shared-data
+      mountPath: /pod-data
+
+kubectl exec -it multi -c ftp-container -- /bin/bash
+
+
+vim template.html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body bgcolor="{{ bgcolor }}">
+        <h1 style="color:white;font-family:Arial, Helvetica, sans-serif;text-align: center">
+            <strong>
+                {{ title }}
+            </strong>
+        </h1>
+    </body>
+</html>
+
+vim server.py
+import tornado.ioloop
+import tornado.web
+
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write = ("Hello, world\n")
+        print(self.request)
+
+
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+if __name__ == "__main__":
+    app = make_app()
+    app.listen(8888)
+    tornado.ioloop.IOLoop.current().start()
+    
+    myapp.yaml
+    
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: myapp
+    name: nginx-ssl
+    image: nginx
+        
+vim nginx.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - name: web
+      containerPort: 80
